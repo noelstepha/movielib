@@ -63,9 +63,7 @@
     },
     methods: {
       async search(pageIdx) {
-        console.log("page1", pageIdx);
         if (this.searched) {
-          console.log("page", pageIdx);
           this.loading = true;
           let query = 'movies/search?search=' + this.searched;
           if (pageIdx) {
@@ -84,8 +82,11 @@
         this.searched = '';
       },
       async add(movie) {
-        await this.$strapi.create('movies', { moviedb_id : String(movie.id) });
-        movie.liked = true
+        const data = { moviedb_id : String(movie.id), title: movie.original_title, poster_path: movie.poster_path };
+        if (movie.release_date && movie.release_date !== "") {
+          data.release_date = movie.release_date
+        }
+        await this.$strapi.create('movies', data);
       },
       async getPage(idx) {
         await this.search(idx)

@@ -11,15 +11,11 @@
     <v-card-actions>
       <v-spacer></v-spacer>
 
-      <v-btn v-if="liked" icon color="red">
-        <v-icon>mdi-heart</v-icon>
+      <v-btn  icon @click="remove">
+        <v-icon>mdi-minus</v-icon>
       </v-btn>
 
-      <v-btn  v-else icon @click="add">
-        <v-icon>mdi-plus</v-icon>
-      </v-btn>
-
-      <v-btn icon @click="see">
+      <v-btn icon>
         <v-icon>mdi-eye</v-icon>
       </v-btn>
     </v-card-actions>
@@ -35,28 +31,16 @@
       }
     },
 
-    data() {
-      return {
-        liked : false
-      }
-    },
-
     computed: {
       posterSrc() {
-        return this.movie.poster_path ? 'https://image.tmdb.org/t/p/original/' + this.movie.poster_path : null
+        return this.movie.poster_path ? 'https://image.tmdb.org/t/p/original/' + this.movie.poster_path : '/movielib-logo.png'
       }
-    },
-
-    created() {
-      this.liked = this.movie.liked
     },
 
     methods: {
-      add() {
-        this.$emit('add');
-        this.liked = true
+      remove() {
+        this.$emit('remove', this.movie.id);
       },
-
       see() {
         this.$emit('see');
       }
@@ -65,7 +49,8 @@
 </script>
 
 <style scoped>
-.movie-preview {
-  cursor: pointer;
-}
+  .movie-preview {
+    cursor: pointer;
+  }
 </style>
+

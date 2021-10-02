@@ -17,11 +17,10 @@ module.exports = {
   ],
   // add your custom rules here
   rules: {
-    semi: [2, "never"],
     "no-console": "off",
     "no-debugger": "off",
     "camelcase": "off",
-    "no-use-before-define": "off"
+    "vue/attributes-order": "off"
   },
   globals: {}
 };
