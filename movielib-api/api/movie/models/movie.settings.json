@@ -1,0 +1,21 @@
+{
+  "kind": "collectionType",
+  "collectionName": "movies",
+  "info": {
+    "name": "movie"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "moviedb_id": {
+      "type": "uid"
+    },
+    "rating": {
+      "type": "float"
+    }
+  }
+}
