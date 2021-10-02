@@ -4,6 +4,11 @@
       <h2>Your favorite movies</h2>
       <p>Find your favorite movies here</p>
     </v-row>
+    <v-row>
+      <v-col cols="12" md="6" lg="3">
+        <v-select label="Trier par :" :items="sortList" v-model="params._sort" @change="load"></v-select>
+      </v-col>
+    </v-row>
     <v-row v-if="!loading" class="pa-5 d-flex flex-wrap" >
       <v-col  v-for="movie in movies" :key="movie.id" cols="12" sm="6" md="4" lg="2">
         <LikedMoviePreview :movie="movie" @remove="remove" @see="see"></LikedMoviePreview>
@@ -24,7 +29,15 @@
     data() {
       return {
         movies: [],
-        loading: true
+        loading: true,
+        params: {
+          _sort: 'title'
+        },
+        sortList: [
+          { text : 'Release Date', value : 'release_date' },
+          { text : 'Creation date', value : 'created_at' },
+          { text : 'Title', value : 'title' }
+        ]
       }
     },
 
@@ -35,7 +48,7 @@
     methods: {
       async load() {
         this.loading = true;
-        this.movies = await this.$strapi.find('movies');
+        this.movies = await this.$strapi.find('movies', { ...this.params });
         this.loading = false;
       },
 
