@@ -18,6 +18,14 @@
     },
     {
       "method": "GET",
+      "path": "/movies/search",
+      "handler": "movie.explore",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
       "path": "/movies/:id",
       "handler": "movie.findOne",
       "config": {

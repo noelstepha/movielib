@@ -13,6 +13,16 @@ module.exports = {
 
       // TO DO Manage all status
       return response
+    },
+
+    search: async (keywords) => {
+      const response = await axios.get(apiurl + 'search/movie' + keyparams + '&query=' + keywords);
+      if (response.status === 200) {
+        return response.data
+      }
+
+      // TO DO Manage all status
+      return response
     }
   }
 };
