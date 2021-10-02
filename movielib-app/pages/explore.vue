@@ -28,7 +28,7 @@
     </v-row>
     <v-row v-if="!loading" class="pa-5 d-flex flex-wrap" >
       <v-col  v-for="result in results" :key="result.id" cols="12" sm="6" md="4" lg="2">
-        <MoviePreview class="ma-2" :movie="result" @add="add(result)"></MoviePreview>
+        <MoviePreview class="ma-2" :movie="result"></MoviePreview>
       </v-col>
       <v-col cols="12">
         <v-pagination
@@ -80,13 +80,6 @@
       },
       clear() {
         this.searched = '';
-      },
-      async add(movie) {
-        const data = { moviedb_id : String(movie.id), title: movie.original_title, poster_path: movie.poster_path };
-        if (movie.release_date && movie.release_date !== "") {
-          data.release_date = movie.release_date
-        }
-        await this.$strapi.create('movies', data);
       },
       async getPage(idx) {
         await this.search(idx)

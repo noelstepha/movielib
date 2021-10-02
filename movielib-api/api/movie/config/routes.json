@@ -33,6 +33,14 @@
       }
     },
     {
+      "method": "GET",
+      "path": "/movies/:id/recommendations",
+      "handler": "movie.recommendations",
+      "config": {
+        "policies": []
+      }
+    },
+    {
       "method": "POST",
       "path": "/movies",
       "handler": "movie.create",

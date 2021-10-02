@@ -11,7 +11,7 @@
     </v-row>
     <v-row v-if="!loading" class="pa-5 d-flex flex-wrap" >
       <v-col  v-for="movie in movies" :key="movie.id" cols="12" sm="6" md="4" lg="2">
-        <LikedMoviePreview :movie="movie" @remove="remove" @see="see"></LikedMoviePreview>
+        <LikedMoviePreview :movie="movie" @remove="remove"></LikedMoviePreview>
       </v-col>
     </v-row>
     <v-row v-if="loading"  justify="center" align="center" class="pa-5 d-flex flex-wrap" >
@@ -55,10 +55,6 @@
       async remove(id) {
         await this.$strapi.delete('movies', id);
         await this.load()
-      },
-
-      see(id) {
-        this.$router.push({ path: 'movie/' +id})
       }
     }
   }

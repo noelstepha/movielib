@@ -42,7 +42,7 @@
         this.$emit('remove', this.movie.id);
       },
       see() {
-        this.$emit('see', this.movie.id);
+        this.$router.push({ path: 'movie/' + this.movie.id })
       }
     }
   }

@@ -52,13 +52,22 @@
     },
 
     methods: {
-      add() {
-        this.$emit('add');
+      async add() {
+        const data = {
+          moviedb_id : String(this.movie.id),
+          title: this.movie.original_title,
+          poster_path: this.movie.poster_path
+        };
+
+        if (this.movie.release_date && this.movie.release_date !== "") {
+          data.release_date = this.movie.release_date
+        }
+        await this.$strapi.create('movies', data);
         this.liked = true
       },
 
       see() {
-        this.$emit('see');
+        this.$router.push({ path: 'movie/' + this.movie.id })
       }
     }
   }

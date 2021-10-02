@@ -1,7 +1,7 @@
 <template>
   <v-container class="movie-details">
     <v-row v-if="movie" class="justify-center">
-      <v-col cols="12" sm="6" md="6" lg="4">
+      <v-col cols="12" sm="6" md="6" lg="3">
         <v-card class="movie-preview">
           <v-img
             :src="posterSrc"
@@ -13,18 +13,26 @@
         </v-card>
       </v-col>
       <v-col cols="12" md="6" class="movie-info pa-5">
-        <h2 class="mb-3">{{ movie.original_title }}</h2><br>
+        <h2 class="highlighted mb-3">{{ movie.original_title }}</h2><br>
         <div class="d-block mb-3">
-          <div class="information d-flex">Overview&nbsp;:&nbsp;</div><div>{{ movie.overview }}</div>
+          <div class="highlighted d-flex">Overview&nbsp;:&nbsp;</div><div>{{ movie.overview }}</div>
         </div>
         <div class="d-flex align-center">
-          <div class="information d-flex">Genre&nbsp;:&nbsp;</div><div>{{ movie.genres.map(g => g.name).join(", ") }}</div>
+          <div class="highlighted d-flex">Genre&nbsp;:&nbsp;</div><div>{{ movie.genres.map(g => g.name).join(", ") }}</div>
         </div>
         <div class="d-flex align-center">
-          <div class="information d-flex">Release date&nbsp;:&nbsp;</div><div>{{ movie.release_date }}</div>
+          <div class="highlighted d-flex">Release date&nbsp;:&nbsp;</div><div>{{ movie.release_date }}</div>
         </div>
         <div class="d-flex align-center">
-          <div class="information d-flex">Worlwide rating&nbsp;:&nbsp;</div><div>{{ movie.vote_average }}/10</div>
+          <div class="highlighted d-flex">Worlwide rating&nbsp;:&nbsp;</div><div>{{ movie.vote_average }}/10</div>
+        </div>
+      </v-col>
+    </v-row>
+    <v-row v-if="movie">
+      <v-col class="recommendations">
+        <div class="d-block my-3">
+          <h3 class="highlighted my-3">Similar titles&nbsp;:&nbsp;</h3>
+          <Recommendations :id="movie.id || $route.params.id"></Recommendations>
         </div>
       </v-col>
     </v-row>
@@ -35,7 +43,9 @@
 export default {
   data() {
     return {
-      movie: null
+      movie: null,
+      page: 1,
+      nbPages: 1
     }
   },
 
@@ -52,8 +62,8 @@ export default {
 </script>
 
 <style scoped>
-.movie-info .information {
-  font-weight: bold;
-  color: #e91e63;
-}
+  .highlighted {
+    font-weight: bold;
+    color: #e91e63;
+  }
 </style>
