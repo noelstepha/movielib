@@ -15,8 +15,8 @@ module.exports = {
       return response
     },
 
-    search: async (keywords) => {
-      const response = await axios.get(apiurl + 'search/movie' + keyparams + '&query=' + keywords);
+    search: async ({ search, page }) => {
+      const response = await axios.get(apiurl + 'search/movie' + keyparams + '&query=' + search + (page ? "&page=" + page : ""));
       if (response.status === 200) {
         return response.data
       }

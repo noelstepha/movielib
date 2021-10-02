@@ -15,7 +15,7 @@ module.exports = {
   },
 
   explore: async ({ query }) => {
-    const page = await strapi.config.functions.moviedb.movie.search(query.search);
+    const page = await strapi.config.functions.moviedb.movie.search(query);
     const ids = page.results.map(m => String(m.id));
     const movieById =  page.results.reduce((map, m) => {
       map[m.id] = m;

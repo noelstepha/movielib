@@ -62,13 +62,18 @@ export default {
       items: [
         {
           icon: 'mdi-apps',
-          title: 'Welcome',
+          title: 'Home page',
           to: '/'
         },
         {
-          icon: 'mdi-chart-bubble',
-          title: 'Inspire',
-          to: '/inspire'
+          icon: 'mdi-magnify',
+          title: 'Explore',
+          to: '/explore'
+        },
+        {
+          icon: 'mdi-movie-star',
+          title: 'Library',
+          to: '/library'
         }
       ],
       miniVariant: false,

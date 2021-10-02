@@ -16,5 +16,12 @@ module.exports = {
   plugins: [
   ],
   // add your custom rules here
-  rules: {}
-}
+  rules: {
+    semi: [2, "never"],
+    "no-console": "off",
+    "no-debugger": "off",
+    "camelcase": "off",
+    "no-use-before-define": "off"
+  },
+  globals: {}
+};
