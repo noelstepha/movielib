@@ -44,7 +44,9 @@
         await this.load()
       },
 
-      see() {}
+      see(id) {
+        this.$router.push({ path: 'movie/' +id})
+      }
     }
   }
 </script>

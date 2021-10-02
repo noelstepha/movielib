@@ -15,7 +15,7 @@
         <v-icon>mdi-minus</v-icon>
       </v-btn>
 
-      <v-btn icon>
+      <v-btn icon @click="see">
         <v-icon>mdi-eye</v-icon>
       </v-btn>
     </v-card-actions>
@@ -42,7 +42,7 @@
         this.$emit('remove', this.movie.id);
       },
       see() {
-        this.$emit('see');
+        this.$emit('see', this.movie.id);
       }
     }
   }
