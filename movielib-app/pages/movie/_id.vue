@@ -26,6 +26,16 @@
         <div class="d-flex align-center">
           <div class="highlighted d-flex">Worlwide rating&nbsp;:&nbsp;</div><div>{{ movie.vote_average }}/10</div>
         </div>
+        <div class="d-flex align-center" v-if="movie.liked">
+          <div class="highlighted d-flex">Your rating&nbsp;:&nbsp;</div>
+          <v-rating
+            v-model="movie.rating"
+            background-color="purple lighten-3"
+            color="purple"
+            length="10"
+            @input="rate"
+          ></v-rating>
+        </div>
       </v-col>
     </v-row>
     <v-row v-if="movie">
@@ -43,9 +53,7 @@
 export default {
   data() {
     return {
-      movie: null,
-      page: 1,
-      nbPages: 1
+      movie: null
     }
   },
 
@@ -57,6 +65,12 @@ export default {
 
   async created() {
     this.movie = await this.$strapi.findOne('movies', this.$route.params.id)
+  },
+
+  methods: {
+    async rate(rating) {
+      await this.$strapi.$http.post('movies/' + this.movie.id + '/rate', { rating });
+    }
   }
 }
 </script>

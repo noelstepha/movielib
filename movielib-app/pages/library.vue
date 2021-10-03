@@ -10,8 +10,18 @@
       </v-col>
     </v-row>
     <v-row v-if="!loading" class="pa-5 d-flex flex-wrap" >
-      <v-col  v-for="movie in movies" :key="movie.id" cols="12" sm="6" md="4" lg="2">
+      <v-col  v-for="movie in movies" :key="movie.id" cols="6" sm="4" md="3" lg="2">
         <LikedMoviePreview :movie="movie" @remove="remove"></LikedMoviePreview>
+      </v-col>
+      <v-col cols="12">
+        {{ page }}
+        <v-pagination
+          v-if="movies.length > 0"
+          v-model="page"
+          :length="nbPages"
+          circle
+          @input="getPage"
+        ></v-pagination>
       </v-col>
     </v-row>
     <v-row v-if="loading"  justify="center" align="center" class="pa-5 d-flex flex-wrap" >
@@ -31,18 +41,25 @@
         movies: [],
         loading: true,
         params: {
-          _sort: 'title'
+          _sort: 'rating:DESC',
+          _start: 0,
+          _limit: 18
         },
         sortList: [
           { text : 'Release Date', value : 'release_date' },
           { text : 'Creation date', value : 'created_at' },
-          { text : 'Title', value : 'title' }
-        ]
+          { text : 'Title', value : 'title' },
+          { text : 'Your rating', value: 'rating:DESC'}
+        ],
+        nbPages: 1,
+        page: 1
       }
     },
 
     async created() {
-      await this.load()
+      await this.load();
+      const nbMovies = await this.$strapi.count('movies');
+      this.nbPages = Math.ceil(nbMovies / this.params._limit);
     },
 
     methods: {
@@ -55,6 +72,12 @@
       async remove(id) {
         await this.$strapi.delete('movies', id);
         await this.load()
+      },
+
+      async getPage(pageIdx) {
+        this.params._start = (pageIdx - 1) * 18;
+        await this.load();
+        this.page = pageIdx
       }
     }
   }

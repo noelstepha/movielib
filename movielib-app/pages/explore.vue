@@ -36,8 +36,6 @@
           v-model="page"
           :length="nbPages"
           circle
-          @next="getPage(page + 1)"
-          @previous="getPage(page - 1)"
           @input="getPage"
         ></v-pagination>
       </v-col>
@@ -80,6 +78,7 @@
       },
       clear() {
         this.searched = '';
+        this.results = [];
       },
       async getPage(idx) {
         await this.search(idx)
