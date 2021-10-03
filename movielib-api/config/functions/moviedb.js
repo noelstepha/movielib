@@ -22,6 +22,7 @@ module.exports = {
       const response = await axios
         .get(apiurl + 'search/movie' + keyparams + '&query=' + search + (page ? "&page=" + page : ""))
         .catch(e => {
+          console.log(e)
           throw "[movielib] Error while fetching movies"
         });
 

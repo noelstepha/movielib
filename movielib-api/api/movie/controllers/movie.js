@@ -30,9 +30,9 @@ module.exports = {
     }
   },
 
-  explore: async ({ query }) => {
+  explore: async (ctx) => {
     try {
-      const page = await strapi.config.functions.moviedb.movie.search(query);
+      const page = await strapi.config.functions.moviedb.movie.search(ctx.query);
       await addLikes(page.results);
 
       return page;

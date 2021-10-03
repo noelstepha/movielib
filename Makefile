@@ -11,10 +11,12 @@ help: ## This help.
 # MongoDB
 # =======
 
-start-mongo: # Start the database
-	docker-compose up --build -d mongodb
+start: # Start the database
+	docker-compose up --build
 
-stop-mongo: # Stop the database
-	docker stop mongodb
-	docker rm mongodb
+stop: # Stop the database
+	docker-compose stop
 
+delete:
+	docker-compose rm
+	docker volume rm movielib_database
