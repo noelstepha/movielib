@@ -1,38 +1,38 @@
 version: '3.7'
 
 services:
-#  movielib-app:
-#    build: movielib-app
-#    container_name: movielib-app
-#    restart: unless-stopped
-#    env_file: .env
-#    environment:
-#      API_URL: ${API_URL}
-#    networks:
-#      - movielib-app-network
-#    ports:
-#      - "3000:3000"
-#
-#  movielib-api:
-#    image: strapi/strapi
-#    container_name: movielib-api
-#    restart: unless-stopped
-#    env_file: .env
-#    environment:
-#      DATABASE_CLIENT: ${DATABASE_CLIENT}
-#      DATABASE_NAME: ${DATABASE_NAME}
-#      DATABASE_HOST: ${DATABASE_HOST}
-#      DATABASE_PORT: ${DATABASE_PORT}
-#      DATABASE_USERNAME: ${MONGO_INITDB_ROOT_USERNAME}
-#      DATABASE_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
-#      MOVIEDB_API_URL: ${MOVIEDB_API_URL}
-#      MOVIEDB_API_KEY: ${MOVIEDB_API_KEY}
-#    networks:
-#      - movielib-app-network
-#    volumes:
-#      - ./movielib-api:/srv/app
-#    ports:
-#      - "1337:1337"
+  movielib-app:
+    build: movielib-app
+    container_name: movielib-app
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      API_URL: ${API_URL}
+    networks:
+      - movielib-app-network
+    ports:
+      - "3000:3000"
+
+  movielib-api:
+    image: strapi/strapi
+    container_name: movielib-api
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      DATABASE_CLIENT: ${DATABASE_CLIENT}
+      DATABASE_NAME: ${DATABASE_NAME}
+      DATABASE_HOST: ${DATABASE_HOST}
+      DATABASE_PORT: ${DATABASE_PORT}
+      DATABASE_USERNAME: ${MONGO_INITDB_ROOT_USERNAME}
+      DATABASE_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
+      MOVIEDB_API_URL: ${MOVIEDB_API_URL}
+      MOVIEDB_API_KEY: ${MOVIEDB_API_KEY}
+    networks:
+      - movielib-app-network
+    volumes:
+      - ./movielib-api:/srv/app
+    ports:
+      - "1337:1337"
 
   mongo:
     image: mongo
