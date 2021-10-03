@@ -49,6 +49,14 @@
       }
     },
     {
+      "method": "POST",
+      "path": "/movies/:id/rate",
+      "handler": "movie.rate",
+      "config": {
+        "policies": []
+      }
+    },
+    {
       "method": "PUT",
       "path": "/movies/:id",
       "handler": "movie.update",

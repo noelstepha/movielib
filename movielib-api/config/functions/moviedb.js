@@ -7,7 +7,7 @@ module.exports = {
     get: async (id) => {
       const response = await axios
         .get(apiurl + 'movie/' + id + keyparams)
-        .catch(e => {
+        .catch(() => {
             throw "[movielib] Error while fetching a movie"
           });
 
@@ -21,8 +21,7 @@ module.exports = {
     search: async ({ search, page }) => {
       const response = await axios
         .get(apiurl + 'search/movie' + keyparams + '&query=' + search + (page ? "&page=" + page : ""))
-        .catch(e => {
-          console.log(e)
+        .catch(() => {
           throw "[movielib] Error while fetching movies"
         });
 
@@ -36,7 +35,7 @@ module.exports = {
     recommendations: async ({ id, page }) => {
       const response = await axios
         .get(apiurl + 'movie/' + id + '/recommendations' + keyparams + (page ? "&page=" + page : ""))
-        .catch(e => {
+        .catch(() => {
           throw "[movielib] Error while fetching recommendations"
         });
 

@@ -13,20 +13,27 @@ module.exports = {
     let movie = null;
     if (id.match(/^[0-9a-fA-F]{24}$/)) { //is mongodb id
       movie = await strapi.services.movie.findOne({ id });
+      movie.liked = true;
     } else {
-      movie = { moviedb_id: id }
+      movie = { moviedb_id: id, liked: false };
     }
 
     if (!movie) {
-      return ctx.badRequest("[movielib] Error while finding a movie")
+      return ctx.badRequest("[movielib] Error while finding a movie");
     }
 
     try {
       const fullmovie = await strapi.config.functions.moviedb.movie.get(movie.moviedb_id);
 
-      return {...fullmovie, id: movie.id, moviedb_id: movie.moviedb_id, rating : movie.rating};
+      return {
+        ...fullmovie,
+        id: movie.id,
+        moviedb_id: movie.moviedb_id,
+        rating : movie.rating,
+        liked: movie.liked
+      };
     } catch(e) {
-      return ctx.badRequest(e)
+      return ctx.badRequest(e);
     }
   },
 
@@ -37,7 +44,7 @@ module.exports = {
 
       return page;
     } catch(e) {
-      return ctx.badRequest(e)
+      return ctx.badRequest(e);
     }
   },
 
@@ -64,8 +71,14 @@ module.exports = {
 
       return page;
     } catch(e) {
-      return ctx.badRequest(e)
+      return ctx.badRequest(e);
     }
+  },
 
+  rate: async (ctx) => {
+    const id = ctx.params.id;
+    const rating = ctx.request.body.rating;
+
+    return strapi.services.movie.update({ id }, { rating });
   }
 };
